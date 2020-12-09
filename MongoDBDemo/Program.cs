@@ -1,14 +1,23 @@
-﻿using static System.Console;
+﻿using MongoDBDemo.MongoDBTransaction;
+using System;
+using System.Threading.Tasks;
+using static System.Console;
 
 namespace MongoDBDemo
 {
-    class Program
+    static class Program
     {
-        static void Main(string[] args)
+        //static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             WriteLine("Hello World!");
 
-            MongoCRUD db = new MongoCRUD("AddressBook");
+            if (!await MongoDBContext.UpdateProductsAsync()) { Environment.Exit(1); }
+
+            Console.WriteLine("Finished updating the product collection");
+            Console.ReadKey();
+
+            //MongoCRUD db = new MongoCRUD("AddressBook");
 
             //PersonModel person = new PersonModel()
             //{
@@ -43,13 +52,13 @@ namespace MongoDBDemo
 
             //}
 
-            var recs = db.LoadRecords<NameModel>("User");
+            //var recs = db.LoadRecords<NameModel>("User");
 
-            foreach (var rec in recs)
-            {
-                WriteLine($"{rec.FristName} {rec.LastName}");
-                WriteLine();
-            }
+            //foreach (var rec in recs)
+            //{
+            //    WriteLine($"{rec.FristName} {rec.LastName}");
+            //    WriteLine();
+            //}
 
             // Get by Id
 
